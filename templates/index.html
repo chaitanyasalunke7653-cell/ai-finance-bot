@@ -1,0 +1,291 @@
+{% extends "base.html" %}
+
+{% block title %}Personal Finance Advisor Bot | Modern Financial Tracking & AI Insights{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-container">
+    <div class="hero-content">
+      <div class="hero-tag">Self-Hosted Personal Ledger</div>
+      <h1 class="hero-title">
+        Disciplined Personal Finance Tracking in Indian Rupees.
+      </h1>
+      <p class="hero-description">
+        Track monthly income streams, itemize category expenses, enforce budget ceilings, and analyze financial health using Google Gemini AI. Built with Python, Flask, and local SQLite data storage.
+      </p>
+      <div class="hero-actions">
+        {% if session.get('user_id') %}
+          <a href="{{ url_for('web.dashboard_page') }}" class="btn btn-primary btn-lg">Open Dashboard</a>
+        {% else %}
+          <a href="{{ url_for('web.register_page') }}" class="btn btn-primary btn-lg">Get Started Free</a>
+          <a href="{{ url_for('web.login_page') }}" class="btn btn-secondary btn-lg">Sign In with Demo</a>
+        {% endif %}
+      </div>
+      <div class="hero-guarantees">
+        <span class="guarantee-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Local SQLite Storage
+        </span>
+        <span class="guarantee-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          No Hardcoded Secrets
+        </span>
+        <span class="guarantee-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          Native INR (₹) Formatting
+        </span>
+      </div>
+    </div>
+
+    <!-- Live Realistic Interface Preview (SVG/CSS FinTech wireframe, no AI slop photos) -->
+    <div class="hero-preview">
+      <div class="preview-card-frame">
+        <div class="preview-header-bar">
+          <div class="preview-dots">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+          <div class="preview-title">Dashboard Overview - Current Month</div>
+          <div class="preview-currency-tag">INR (₹)</div>
+        </div>
+        <div class="preview-body">
+          <div class="preview-metric-row">
+            <div class="preview-metric">
+              <span class="p-label">Monthly Income</span>
+              <span class="p-val text-success">₹1,07,700.00</span>
+            </div>
+            <div class="preview-metric">
+              <span class="p-label">Total Expenses</span>
+              <span class="p-val text-danger">₹48,450.00</span>
+            </div>
+            <div class="preview-metric">
+              <span class="p-label">Net Savings</span>
+              <span class="p-val text-primary">₹59,250.00</span>
+            </div>
+            <div class="preview-metric">
+              <span class="p-label">Savings Rate</span>
+              <span class="p-val">55.0%</span>
+            </div>
+          </div>
+
+          <div class="preview-grid">
+            <div class="preview-box">
+              <div class="p-box-title">Budget Utilization</div>
+              <div class="preview-budget-item">
+                <div class="p-b-label"><span>Rent & Housing</span><span>₹22,000 / ₹22,000 (100%)</span></div>
+                <div class="p-bar"><div class="p-bar-fill bg-warning" style="width: 100%;"></div></div>
+              </div>
+              <div class="preview-budget-item">
+                <div class="p-b-label"><span>Food & Groceries</span><span>₹11,550 / ₹14,000 (82%)</span></div>
+                <div class="p-bar"><div class="p-bar-fill bg-primary" style="width: 82%;"></div></div>
+              </div>
+              <div class="preview-budget-item">
+                <div class="p-b-label"><span>Transport</span><span>₹4,200 / ₹5,000 (84%)</span></div>
+                <div class="p-bar"><div class="p-bar-fill bg-primary" style="width: 84%;"></div></div>
+              </div>
+            </div>
+
+            <div class="preview-box">
+              <div class="p-box-title">Gemini AI Analytical Summary</div>
+              <div class="p-ai-quote">
+                "Your savings rate of 55% is strong. Overspending risk is concentrated in Food & Groceries at 82% threshold. Directing ₹25,000 surplus to your Emergency Fund will achieve your ₹3,00,000 milestone 2 months ahead of target."
+              </div>
+              <div class="p-ai-tag">Educational Financial Review</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Core Features Section -->
+<section id="features" class="features-section">
+  <div class="section-container">
+    <div class="section-header">
+      <h2 class="section-title">Core Management Capabilities</h2>
+      <p class="section-subtitle">
+        Every tool required to manage personal and household finances in India, organized into structured modules.
+      </p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="1" x2="12" y2="23"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+        </div>
+        <h3 class="feature-title">Income & Cash Flow Tracking</h3>
+        <p class="feature-desc">
+          Log salary, freelance invoices, business dividends, and rental inflows. Filter records by month and monitor your net cash inflow with zero rounding errors.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+        </div>
+        <h3 class="feature-title">Categorized Expense Ledger</h3>
+        <p class="feature-desc">
+          Organize daily transactions across 9 standard categories: Food, Rent, Transport, Education, Healthcare, Entertainment, Shopping, Utilities, and Other.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+        </div>
+        <h3 class="feature-title">Monthly Category Budgeting</h3>
+        <p class="feature-desc">
+          Define realistic spending ceilings for individual categories. Track real-time progress bars and receive visual warnings when spending exceeds 80% or 100% of limits.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <circle cx="12" cy="12" r="6"></circle>
+            <circle cx="12" cy="12" r="2"></circle>
+          </svg>
+        </div>
+        <h3 class="feature-title">Tangible Savings Goals</h3>
+        <p class="feature-desc">
+          Define target funds for Emergency Reserves, Tech Hardware, Education, or Travel. Record deposit increments and track deadline completion milestones.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </div>
+        <h3 class="feature-title">Gemini AI Financial Advisor</h3>
+        <p class="feature-desc">
+          Runs structured analysis of your actual month-to-date spending. Returns objective summaries, high-burn alerts, budget recalibrations, and practical weekly checklists.
+        </p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+        </div>
+        <h3 class="feature-title">Private & Self-Contained</h3>
+        <p class="feature-desc">
+          All records reside in your local SQLite database file. No external telemetry, no selling of user profiles, and no automated bank account harvesting.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how-it-works" class="workflow-section">
+  <div class="section-container">
+    <div class="section-header">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-subtitle">
+        A straightforward four-step workflow to maintain complete control over your cash flow.
+      </p>
+    </div>
+
+    <div class="workflow-steps">
+      <div class="workflow-step">
+        <div class="step-badge">1</div>
+        <h4 class="step-title">Record Monthly Inflows</h4>
+        <p class="step-desc">Enter your primary salary, freelancing earnings, or investment returns to establish your baseline revenue in Indian Rupees.</p>
+      </div>
+      <div class="workflow-step">
+        <div class="step-badge">2</div>
+        <h4 class="step-title">Log Categorized Expenses</h4>
+        <p class="step-desc">Record purchases and bill payments daily. Assign items to predefined categories to prevent unmonitored cash leaks.</p>
+      </div>
+      <div class="workflow-step">
+        <div class="step-badge">3</div>
+        <h4 class="step-title">Enforce Category Budgets</h4>
+        <p class="step-desc">Establish spending caps per category. The dashboard compares actual expenditures against limits and flags warning thresholds.</p>
+      </div>
+      <div class="workflow-step">
+        <div class="step-badge">4</div>
+        <h4 class="step-title">Review AI Insights</h4>
+        <p class="step-desc">Request Gemini AI reviews to discover high-burn categories, recalibrate budgets, and track progress toward your savings goals.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Architecture Section -->
+<section id="architecture" class="architecture-section">
+  <div class="section-container">
+    <div class="section-header">
+      <h2 class="section-title">Engineered for Academic & Production Integrity</h2>
+      <p class="section-subtitle">
+        Clean separation of concerns with modern Python backend, relational data models, and zero frontend state contamination.
+      </p>
+    </div>
+
+    <div class="architecture-grid">
+      <div class="arch-card">
+        <h4 class="arch-card-title">Backend Architecture</h4>
+        <ul class="arch-list">
+          <li>Python 3.11+ with Flask REST framework</li>
+          <li>SQLAlchemy ORM with strict foreign keys</li>
+          <li>Session authentication with hashed passwords (pbkdf2:sha256)</li>
+          <li>All mathematical aggregates computed server-side</li>
+        </ul>
+      </div>
+
+      <div class="arch-card">
+        <h4 class="arch-card-title">AI Integration</h4>
+        <ul class="arch-list">
+          <li>Official Google GenAI SDK integration</li>
+          <li>Structured prompt templates enforcing strict JSON return schema</li>
+          <li>Zero hardcoded keys; strictly loaded from root .env</li>
+          <li>Deterministic fallback calculations if offline or rate-limited</li>
+        </ul>
+      </div>
+
+      <div class="arch-card">
+        <h4 class="arch-card-title">Frontend Architecture</h4>
+        <ul class="arch-list">
+          <li>Semantic HTML5 and modular CSS3 architecture</li>
+          <li>Pure Vanilla JavaScript with asynchronous Fetch API calls</li>
+          <li>Chart.js dynamic visual rendering for distributions and trends</li>
+          <li>Responsive layouts tailored for desktop and mobile screens</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section">
+  <div class="section-container">
+    <div class="cta-box">
+      <h2 class="cta-title">Start Managing Your Finances Today</h2>
+      <p class="cta-desc">
+        Launch the local server, explore the pre-seeded demo dataset, or create your private account to start tracking in Indian Rupees.
+      </p>
+      <div class="cta-actions">
+        <a href="{{ url_for('web.register_page') }}" class="btn btn-primary btn-lg">Create Free Account</a>
+        <a href="{{ url_for('web.login_page') }}" class="btn btn-outline-light btn-lg">Log In to Demo</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

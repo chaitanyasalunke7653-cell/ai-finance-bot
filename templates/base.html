@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Personal Finance Advisor Bot{% endblock %}</title>
+  <meta name="description" content="Personal Finance Advisor Bot - Track income, categorized expenses, monthly budgets, and analyze financial health with Gemini AI in Indian Rupees.">
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="site-body">
+  <!-- Top Navigation Header -->
+  <header class="public-header">
+    <div class="header-container">
+      <a href="{{ url_for('web.landing_page') }}" class="brand-link">
+        <span class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+            <line x1="6" y1="9" x2="18" y2="9"></line>
+            <line x1="6" y1="13" x2="18" y2="13"></line>
+            <line x1="6" y1="17" x2="12" y2="17"></line>
+          </svg>
+        </span>
+        <span class="brand-name">Personal Finance Advisor Bot</span>
+      </a>
+
+      <nav class="public-nav">
+        <a href="{{ url_for('web.landing_page') }}" class="nav-item">Overview</a>
+        <a href="{{ url_for('web.landing_page') }}#features" class="nav-item">Features</a>
+        <a href="{{ url_for('web.landing_page') }}#architecture" class="nav-item">Architecture</a>
+        <a href="{{ url_for('web.privacy_page') }}" class="nav-item">Privacy</a>
+        <a href="{{ url_for('web.terms_page') }}" class="nav-item">Terms</a>
+      </nav>
+
+      <div class="header-actions">
+        {% if session.get('user_id') %}
+          <a href="{{ url_for('web.dashboard_page') }}" class="btn btn-primary">Go to Dashboard</a>
+        {% else %}
+          <a href="{{ url_for('web.login_page') }}" class="btn btn-outline">Sign In</a>
+          <a href="{{ url_for('web.register_page') }}" class="btn btn-primary">Create Account</a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="public-main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <!-- Professional Footer -->
+  <footer class="public-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-link">
+            <span class="brand-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                <line x1="6" y1="9" x2="18" y2="9"></line>
+                <line x1="6" y1="13" x2="18" y2="13"></line>
+              </svg>
+            </span>
+            <span class="brand-name">Personal Finance Advisor Bot</span>
+          </div>
+          <p class="footer-desc">
+            A production-ready personal finance management system built on Python Flask, SQLite, and Google Gemini AI. Designed for tracking income, expenses, and savings goals in Indian Rupees (₹).
+          </p>
+        </div>
+
+        <div class="footer-links-grid">
+          <div class="footer-col">
+            <h4 class="footer-col-title">Navigation</h4>
+            <ul class="footer-links">
+              <li><a href="{{ url_for('web.landing_page') }}">Home</a></li>
+              <li><a href="{{ url_for('web.landing_page') }}#features">Core Features</a></li>
+              <li><a href="{{ url_for('web.landing_page') }}#how-it-works">How It Works</a></li>
+              <li><a href="{{ url_for('web.dashboard_page') }}">Application Dashboard</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col-title">Security & Legal</h4>
+            <ul class="footer-links">
+              <li><a href="{{ url_for('web.privacy_page') }}">Privacy Policy</a></li>
+              <li><a href="{{ url_for('web.terms_page') }}">Terms and Conditions</a></li>
+              <li><span class="footer-note">Local SQLite Storage</span></li>
+              <li><span class="footer-note">Zero Secret Exposure</span></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4 class="footer-col-title">System Specs</h4>
+            <ul class="footer-links">
+              <li><span>Python 3.11+ / Flask</span></li>
+              <li><span>Chart.js Financial Visuals</span></li>
+              <li><span>Google Gemini AI SDK</span></li>
+              <li><span>INR (₹) Standard</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">
+          &copy; {{ current_year }} Personal Finance Advisor Bot. All calculations executed server-side. AI-generated information is for educational and planning purposes and should not be considered professional financial advice.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

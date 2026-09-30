@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy | Personal Finance Advisor Bot{% endblock %}
+
+{% block content %}
+<section class="legal-section">
+  <div class="legal-container">
+    <div class="legal-header">
+      <div class="hero-tag">Data Transparency</div>
+      <h1 class="legal-title">Privacy Policy</h1>
+      <p class="legal-meta">Effective Date: October 1, 2026 | Application Version 1.0.0</p>
+    </div>
+
+    <div class="legal-card">
+      <div class="legal-block">
+        <h2 class="legal-subtitle">1. Architecture and Data Retention</h2>
+        <p>
+          Personal Finance Advisor Bot is developed as an on-premises, self-hosted web application. All personal records, financial transaction entries, budget limits, and savings goals are stored locally in an SQLite database file residing on the host environment where the application is deployed.
+        </p>
+        <p>
+          We do not operate centralized cloud servers that harvest, aggregate, or distribute your personal financial information. Your transactional data remains under your direct administrative control.
+        </p>
+      </div>
+
+      <div class="legal-block">
+        <h2 class="legal-subtitle">2. Information Handled by the Application</h2>
+        <p>The application stores only the attributes you explicitly submit through the interface:</p>
+        <ul class="legal-list">
+          <li>Account credentials: Name, email address, and cryptographically salted password hashes (PBKDF2-SHA256). Plaintext passwords are never persisted.</li>
+          <li>Cash flow records: Income source titles, monetary values in Indian Rupees (₹), dates, and descriptive notes.</li>
+          <li>Expense logs: Category classifications, transaction values, dates, and optional user notes.</li>
+          <li>Planning metrics: Monthly category budgets and target deadlines for designated savings goals.</li>
+        </ul>
+      </div>
+
+      <div class="legal-block">
+        <h2 class="legal-subtitle">3. Google Gemini AI Processing</h2>
+        <p>
+          When you explicitly trigger the "Analyze with Gemini AI" feature, the application compiles an aggregated monthly summary (total income, total expenses, category percentages, budget limits, and goal progress) and transmits this payload to the Google Gemini API endpoint using the API key you configure in your local environment file (.env).
+        </p>
+        <p>
+          Important parameters governing AI processing:
+        </p>
+        <ul class="legal-list">
+          <li>Transmission occurs solely upon manual request from the authenticated dashboard.</li>
+          <li>No personal banking credentials, credit card numbers, PAN identifiers, or account numbers are collected or transmitted.</li>
+          <li>Your Gemini API key is loaded strictly on the server-side via environment variables and is never exposed to browser clients or public code repositories.</li>
+        </ul>
+      </div>
+
+      <div class="legal-block">
+        <h2 class="legal-subtitle">4. Cookies and Session Management</h2>
+        <p>
+          The application uses a single encrypted session cookie strictly for user authentication. This cookie is configured with HttpOnly and SameSite=Lax flags to protect against cross-site scripting (XSS) and cross-site request forgery (CSRF) vectors. We do not use third-party advertising cookies or cross-site tracking trackers.
+        </p>
+      </div>
+
+      <div class="legal-block">
+        <h2 class="legal-subtitle">5. Data Deletion and Portability</h2>
+        <p>
+          Because the application runs on a local SQLite database, you retain full operational autonomy over your records. You may delete individual records via the user interface, reset demo accounts using the provided seed script, or delete the instance/finance.db database file at any time to purge all stored data permanently.
+        </p>
+      </div>
+
+      <div class="legal-block">
+        <h2 class="legal-subtitle">6. Inquiries and Technical Support</h2>
+        <p>
+          If you have technical questions regarding the data handling mechanisms of Personal Finance Advisor Bot, inspect the open source code repository or review the configuration instructions in the README documentation.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

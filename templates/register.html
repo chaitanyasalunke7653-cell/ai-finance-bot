@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}Create Account | Personal Finance Advisor Bot{% endblock %}
+
+{% block content %}
+<section class="auth-section">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="auth-icon-badge">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="8.5" cy="7" r="4"></circle>
+          <line x1="20" y1="8" x2="20" y2="14"></line>
+          <line x1="23" y1="11" x2="17" y2="11"></line>
+        </svg>
+      </div>
+      <h1 class="auth-title">Create an Account</h1>
+      <p class="auth-subtitle">Set up your private personal ledger on your local machine.</p>
+    </div>
+
+    <!-- Alert Box for Error / Info -->
+    <div id="authAlert" class="alert alert-danger" style="display: none;"></div>
+
+    <form id="registerForm" class="auth-form" onsubmit="handleRegister(event)">
+      <div class="form-group">
+        <label for="name" class="form-label">Full Name</label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          class="form-control" 
+          placeholder="e.g. Aarav Sharma" 
+          required 
+          autocomplete="name"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="email" class="form-label">Email Address</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          class="form-control" 
+          placeholder="name@example.com" 
+          required 
+          autocomplete="email"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          class="form-control" 
+          placeholder="Minimum 6 characters" 
+          required 
+          autocomplete="new-password"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword" class="form-label">Confirm Password</label>
+        <input 
+          type="password" 
+          id="confirmPassword" 
+          name="confirmPassword" 
+          class="form-control" 
+          placeholder="Repeat your password" 
+          required 
+          autocomplete="new-password"
+        />
+      </div>
+
+      <button type="submit" id="submitBtn" class="btn btn-primary btn-block">
+        Create Account
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Already have an account? <a href="{{ url_for('web.login_page') }}" class="link-primary">Sign in</a></p>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  async function handleRegister(e) {
+    e.preventDefault();
+    const alertBox = document.getElementById("authAlert");
+    const submitBtn = document.getElementById("submitBtn");
+    alertBox.style.display = "none";
+    alertBox.textContent = "";
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (!name || !email || !password || !confirmPassword) {
+      alertBox.textContent = "All fields are required.";
+      alertBox.style.display = "block";
+      return;
+    }
+
+    if (password.length < 6) {
+      alertBox.textContent = "Password must be at least 6 characters long.";
+      alertBox.style.display = "block";
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alertBox.textContent = "Passwords do not match.";
+      alertBox.style.display = "block";
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Creating Account...";
+
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password })
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to create account.");
+      }
+
+      // Successful registration - redirect to dashboard
+      window.location.href = "/dashboard";
+    } catch (err) {
+      alertBox.textContent = err.message;
+      alertBox.style.display = "block";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Create Account";
+    }
+  }
+</script>
+{% endblock %}

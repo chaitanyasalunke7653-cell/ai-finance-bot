@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Sign In | Personal Finance Advisor Bot{% endblock %}
+
+{% block content %}
+<section class="auth-section">
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="auth-icon-badge">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </div>
+      <h1 class="auth-title">Sign In to Your Account</h1>
+      <p class="auth-subtitle">Access your personal finance dashboard and budget metrics.</p>
+    </div>
+
+    <!-- Alert Box for Error / Info -->
+    <div id="authAlert" class="alert alert-danger" style="display: none;"></div>
+
+    <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label for="email" class="form-label">Email Address</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          class="form-control" 
+          placeholder="name@example.com" 
+          required 
+          autocomplete="email"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          class="form-control" 
+          placeholder="Enter your password" 
+          required 
+          autocomplete="current-password"
+        />
+      </div>
+
+      <button type="submit" id="submitBtn" class="btn btn-primary btn-block">
+        Sign In
+      </button>
+
+      <div class="demo-login-box">
+        <span class="demo-box-label">Testing Demo Account?</span>
+        <button type="button" class="btn btn-outline btn-sm btn-block" onclick="fillDemoCredentials()">
+          Fill Demo Credentials (demo@example.com)
+        </button>
+      </div>
+    </form>
+
+    <div class="auth-footer">
+      <p>Do not have an account? <a href="{{ url_for('web.register_page') }}" class="link-primary">Create an account</a></p>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  function fillDemoCredentials() {
+    document.getElementById("email").value = "demo@example.com";
+    document.getElementById("password").value = "DemoUser@123";
+  }
+
+  async function handleLogin(e) {
+    e.preventDefault();
+    const alertBox = document.getElementById("authAlert");
+    const submitBtn = document.getElementById("submitBtn");
+    alertBox.style.display = "none";
+    alertBox.textContent = "";
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    if (!email || !password) {
+      alertBox.textContent = "Please fill in all fields.";
+      alertBox.style.display = "block";
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Signing In...";
+
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Authentication failed. Check your credentials.");
+      }
+
+      // Successful login
+      window.location.href = "/dashboard";
+    } catch (err) {
+      alertBox.textContent = err.message;
+      alertBox.style.display = "block";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Sign In";
+    }
+  }
+</script>
+{% endblock %}
